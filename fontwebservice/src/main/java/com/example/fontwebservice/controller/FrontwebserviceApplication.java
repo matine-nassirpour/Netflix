@@ -1,5 +1,6 @@
 package com.example.fontwebservice.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -13,6 +14,7 @@ import java.util.List;
 public class FrontwebserviceApplication {
     @Autowired
     DiscoveryClient discoveryClient;
+    @HystrixCommand(fallbackMethod = "defaultMessage")
     @GetMapping("/")
     public String hello() {
         List<ServiceInstance> instances = discoveryClient.getInstances("webservice1");
@@ -25,5 +27,9 @@ public class FrontwebserviceApplication {
         ResponseEntity<String> response =
                 restTemplate.getForEntity(microservice1Address, String.class);
         return response.getBody();
+    }
+
+    public String defaultMessage() {
+        return "Le service ne fonctionne plus !";
     }
 }
