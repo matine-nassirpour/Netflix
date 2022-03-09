@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RestController
-public class FontwebserviceApplication {
+public class FrontwebserviceApplication {
     @Autowired
     DiscoveryClient discoveryClient;
     @GetMapping("/")
@@ -24,7 +24,6 @@ public class FontwebserviceApplication {
         String microservice1Address = "http://" + hostname + ":" + port;
         ResponseEntity<String> response =
                 restTemplate.getForEntity(microservice1Address, String.class);
-        String s = response.getBody();
-        return s;
+        return response.getBody();
     }
 }
