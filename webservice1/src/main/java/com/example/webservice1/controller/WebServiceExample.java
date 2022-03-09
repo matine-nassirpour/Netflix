@@ -1,4 +1,4 @@
-package com.example.webservice1;
+package com.example.webservice1.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
